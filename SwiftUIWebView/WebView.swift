@@ -62,8 +62,10 @@ struct WebView: UIViewRepresentable, WebViewHandlerDelegate {
                 }
             
                 else {
-                    if let url = URL(string: "https://internetdevels.com/sites/default/files/public/blog_preview/404_page_cover.jpg") {
+                    if let url = URL(string: "https://www.annsentitledlife.com/wp-content/uploads/2019/04/error-404-not-found-vertical.jpg") {
                         webView.load(URLRequest(url: url))
+                    
+                    
                     }
                 }
             // Load local website
@@ -106,32 +108,32 @@ struct WebView: UIViewRepresentable, WebViewHandlerDelegate {
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             // Get the title of loaded webcontent
-            webView.evaluateJavaScript("document.title") { (response, error) in
-                if let error = error {
-                    print("Error getting title")
-                    print(error.localizedDescription)
-                }
+          //  webView.evaluateJavaScript("document.title") { (response, error) in
+            //    if let error = error {
+              //      print("Error getting title")
+                //    print(error.localizedDescription)
+                //}
                 
-                guard let title = response as? String else {
-                    return
-                }
+                //guard let title = response as? String else {
+                  //  return
+                //}
                 
-                self.parent.viewModel.showWebTitle.send(title)
-            }
+               // self.parent.viewModel.showWebTitle.send(title)
+            //}
             
             /* An observer that observes 'viewModel.valuePublisher' to get value from TextField and
              pass that value to web app by calling JavaScript function */
-            valueSubscriber = parent.viewModel.valuePublisher.receive(on: RunLoop.main).sink(receiveValue: { value in
-                let javascriptFunction = "valueGotFromIOS(\(value));"
-                webView.evaluateJavaScript(javascriptFunction) { (response, error) in
-                    if let error = error {
-                        print("Error calling javascript:valueGotFromIOS()")
-                        print(error.localizedDescription)
-                    } else {
-                        print("Called javascript:valueGotFromIOS()")
-                    }
-                }
-            })
+            //valueSubscriber = parent.viewModel.valuePublisher.receive(on: RunLoop.main).sink(receiveValue: { value in
+              //  let javascriptFunction = "valueGotFromIOS(\(value));"
+                //webView.evaluateJavaScript(javascriptFunction) { (response, error) in
+                  //  if let error = error {
+                    //    print("Error calling javascript:valueGotFromIOS()")
+                      //  print(error.localizedDescription)
+                    //} else {
+                      //  print("Called javascript:valueGotFromIOS()")
+                    //}
+                //}
+            //})
             
             // Page loaded so no need to show loader anymore
             self.parent.viewModel.showLoader.send(false)
@@ -175,21 +177,21 @@ struct WebView: UIViewRepresentable, WebViewHandlerDelegate {
         }
         
         // This function is essential for intercepting every navigation in the webview
-        func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        //func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             // Suppose you don't want your user to go a restricted site
             // Here you can get many information about new url from 'navigationAction.request.description'
-            if let host = navigationAction.request.url?.host {
-                if host == "restricted.com" {
+          //  if let host = navigationAction.request.url?.host {
+            //    if host == "restricted.com" {
                     // This cancels the navigation
-                    decisionHandler(.cancel)
-                    return
-                }
-            }
+              //      decisionHandler(.cancel)
+                //    return
+                //}
+            //}
             // This allows the navigation
-            decisionHandler(.allow)
+            //decisionHandler(.allow)
         }
     }
-}
+//}
 
 // MARK: - Extensions
 extension WebView.Coordinator: WKScriptMessageHandler {

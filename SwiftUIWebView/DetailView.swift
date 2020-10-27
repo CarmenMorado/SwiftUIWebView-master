@@ -15,14 +15,11 @@ struct DetailView: View {
             HStack {
                 TextField("https://www.domain.com", text: $userMessage.message).textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {
-                    self.viewModel.valuePublisher.send(self.userMessage.message)
+                    //self.viewModel.valuePublisher.send(self.userMessage.message)
                 }) {
                 
                     NavigationLink(destination: ContentView(userMessage: userMessage.message)) {
-                    Image("settings")
-                        .renderingMode(.original)
-                        .resizable()
-                        .frame(width: 25, height: 25)
+                    Text("Send")
                         .padding(.trailing, 10)
                         .padding(.leading, 10)
                         .padding(.top, 4)

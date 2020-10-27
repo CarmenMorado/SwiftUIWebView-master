@@ -57,11 +57,20 @@ struct WebView: UIViewRepresentable, WebViewHandlerDelegate {
     func updateUIView(_ webView: WKWebView, context: Context) {
         if url == .localUrl {
             if let url = URL(string: userMessage) {
+                if verifyUrl(urlString: userMessage) == true {
                 webView.load(URLRequest(url: url))
+                }
+            
+                else {
+                    if let url = URL(string: "https://internetdevels.com/sites/default/files/public/blog_preview/404_page_cover.jpg") {
+                        webView.load(URLRequest(url: url))
+                    }
+                }
             // Load local website
             //if let url = Bundle.main.url(forResource: "LocalWebsite", withExtension: "html", subdirectory: "www") {
                 //webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
-            }
+        }
+
         } else if url == .publicUrl {
             // Load a public website, for example I used here google.com
             if let url = URL(string: "https://www.google.com") {
@@ -69,6 +78,15 @@ struct WebView: UIViewRepresentable, WebViewHandlerDelegate {
             }
         }
     }
+    
+    func verifyUrl (urlString: String?) -> Bool {
+       if let urlString = urlString {
+           if let url = NSURL(string: urlString) {
+               return UIApplication.shared.canOpenURL(url as URL)
+           }
+       }
+       return false
+   }
     
     class Coordinator : NSObject, WKNavigationDelegate {
         var parent: WebView

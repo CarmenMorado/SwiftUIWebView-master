@@ -77,7 +77,10 @@ struct ContentView: View {
                         //self.viewModel.valuePublisher.send(self.userMessage.message)
                     //}) {
                             NavigationLink(destination: DetailView()) {
-                                Text("Send")
+                                Image("settings")
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
                                     .padding(.trailing, 10)
                                     .padding(.leading, 10)
                                     .padding(.top, 4)
